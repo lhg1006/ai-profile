@@ -72,26 +72,26 @@ export default function CoinsPage() {
         </div>
       </nav>
 
-      <div className="container mx-auto px-6 py-12">
+      <div className="container mx-auto px-4 sm:px-6 py-8 sm:py-12">
         <div className="max-w-6xl mx-auto">
           {/* Header */}
-          <div className="text-center mb-12">
-            <h1 className="text-4xl font-bold text-gray-900 mb-4">
+          <div className="text-center mb-8 sm:mb-12">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-4">
               코인 충전하기
             </h1>
-            <div className="flex items-center justify-center space-x-2 mb-6">
-              <span className="text-2xl">🪙</span>
-              <span className="text-2xl font-bold text-indigo-600">현재 잔액: {formatCoins(currentCoins)} 코인</span>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-2 mb-6">
+              <span className="text-xl sm:text-2xl">🪙</span>
+              <span className="text-lg sm:text-2xl font-bold text-indigo-600">현재 잔액: {formatCoins(currentCoins)} 코인</span>
             </div>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            <p className="text-sm sm:text-base md:text-lg text-gray-600 max-w-2xl mx-auto px-4">
               코인으로 AI 프로필 사진을 생성하세요. 더 많이 구매할수록 보너스 코인을 받을 수 있습니다.
             </p>
           </div>
 
           {/* Coin Usage Guide */}
-          <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 mb-8">
-            <h3 className="font-semibold text-blue-900 mb-3">💡 코인 사용 가이드 (1:3 생성 비율)</h3>
-            <div className="grid md:grid-cols-2 gap-6 text-blue-800 text-sm">
+          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 sm:p-6 mb-6 sm:mb-8">
+            <h3 className="font-semibold text-blue-900 mb-3 text-sm sm:text-base">💡 코인 사용 가이드 (1:3 생성 비율)</h3>
+            <div className="grid sm:grid-cols-2 gap-4 sm:gap-6 text-blue-800 text-xs sm:text-sm">
               <div>
                 <div className="mb-3">
                   <strong>기본 생성:</strong> 사진 1장당 10 코인
@@ -118,12 +118,12 @@ export default function CoinsPage() {
           </div>
 
           {/* Coin Packages */}
-          <div className="grid md:grid-cols-3 lg:grid-cols-5 gap-6">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4 md:gap-6">
             {COIN_PACKAGES.map((pkg) => (
               <div
                 key={pkg.id}
-                className={`bg-white rounded-xl shadow-lg p-6 relative ${
-                  pkg.popular ? 'ring-2 ring-indigo-500 transform scale-105' : ''
+                className={`bg-white rounded-xl shadow-lg p-4 sm:p-6 relative ${
+                  pkg.popular ? 'ring-2 ring-indigo-500 sm:transform sm:scale-105' : ''
                 }`}
               >
                 {pkg.popular && (
@@ -135,30 +135,30 @@ export default function CoinsPage() {
                 )}
 
                 <div className="text-center">
-                  <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                  <h3 className="text-sm sm:text-base md:text-lg font-semibold text-gray-900 mb-2">
                     {pkg.title}
                   </h3>
                   
                   <div className="mb-4">
-                    <div className="text-3xl font-bold text-indigo-600">
+                    <div className="text-xl sm:text-2xl md:text-3xl font-bold text-indigo-600">
                       {formatCoins(pkg.coins)}
                     </div>
-                    <div className="text-sm text-gray-500">코인</div>
+                    <div className="text-xs sm:text-sm text-gray-500">코인</div>
                     {pkg.bonus && (
-                      <div className="text-green-600 text-sm font-semibold">
+                      <div className="text-green-600 text-xs sm:text-sm font-semibold">
                         + {formatCoins(pkg.bonus)} 보너스!
                       </div>
                     )}
                   </div>
 
-                  <div className="text-2xl font-bold text-gray-900 mb-6">
+                  <div className="text-lg sm:text-xl md:text-2xl font-bold text-gray-900 mb-4 sm:mb-6">
                     {formatPrice(pkg.price)}
                   </div>
 
                   <button
                     onClick={() => handlePurchase(pkg)}
                     disabled={loading === pkg.id}
-                    className={`w-full py-3 px-4 rounded-lg font-semibold transition-colors ${
+                    className={`w-full py-2 sm:py-3 px-3 sm:px-4 rounded-lg font-semibold transition-colors text-xs sm:text-sm ${
                       pkg.popular
                         ? 'bg-indigo-600 text-white hover:bg-indigo-700'
                         : 'bg-gray-800 text-white hover:bg-gray-900'
@@ -172,19 +172,19 @@ export default function CoinsPage() {
           </div>
 
           {/* Payment Notice */}
-          <div className="mt-12 bg-gray-100 rounded-lg p-6 text-center">
-            <h3 className="font-semibold text-gray-900 mb-2">💳 결제 안내</h3>
-            <p className="text-gray-600 text-sm">
+          <div className="mt-8 sm:mt-12 bg-gray-100 rounded-lg p-4 sm:p-6 text-center">
+            <h3 className="font-semibold text-gray-900 mb-2 text-sm sm:text-base">💳 결제 안내</h3>
+            <p className="text-gray-600 text-xs sm:text-sm">
               현재는 데모 모드로 실제 결제가 진행되지 않습니다. 
               실서비스에서는 토스페이먼츠, 카카오페이 등을 통해 안전하게 결제할 수 있습니다.
             </p>
           </div>
 
           {/* Back Button */}
-          <div className="mt-8 text-center">
+          <div className="mt-6 sm:mt-8 text-center">
             <Link
               href="/upload"
-              className="inline-flex items-center text-gray-600 hover:text-gray-800"
+              className="inline-flex items-center text-gray-600 hover:text-gray-800 text-sm sm:text-base"
             >
               ← 사진 생성하러 가기
             </Link>

@@ -20,14 +20,14 @@ export default function CoinBalance() {
   }, [])
 
   return (
-    <div className="flex items-center space-x-3">
-      <div className="flex items-center bg-yellow-50 border border-yellow-200 rounded-lg px-3 py-1">
-        <span className="text-yellow-600 text-lg mr-1">🪙</span>
-        <span className="text-yellow-800 font-semibold">{formatCoins(coins)}</span>
+    <div className="flex items-center space-x-2 sm:space-x-3">
+      <div className="flex items-center bg-yellow-50 border border-yellow-200 rounded-lg px-2 sm:px-3 py-1">
+        <span className="text-yellow-600 text-sm sm:text-lg mr-1">🪙</span>
+        <span className="text-yellow-800 font-semibold text-xs sm:text-sm">{formatCoins(coins)}</span>
       </div>
       <Link
         href="/coins"
-        className="bg-indigo-600 text-white text-sm px-3 py-1 rounded-md hover:bg-indigo-700 transition-colors"
+        className="bg-indigo-600 text-white text-xs sm:text-sm px-2 sm:px-3 py-1 rounded-md hover:bg-indigo-700 transition-colors"
       >
         충전
       </Link>

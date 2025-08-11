@@ -35,33 +35,33 @@ export default function LoginPage() {
     // 임시로 이메일 입력받아서 세션 생성 (데모용)
     const email = prompt('이메일을 입력하세요 (데모용)')
     if (email) {
-      // 임시 로그인 처리 (신규 유저는 100 코인 지급)
+      // 임시 로그인 처리 (신규 유저는 10 코인 지급)
       localStorage.setItem('demo-user', JSON.stringify({ 
         email, 
         name: email.split('@')[0],
-        coins: 100 // 신규 유저 웰컴 코인
+        coins: 10 // 신규 유저 웰컴 코인
       }))
       router.push('/upload')
     }
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center">
-      <div className="bg-white rounded-2xl shadow-xl p-8 w-full max-w-md">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
+      <div className="bg-white rounded-2xl shadow-xl p-6 sm:p-8 w-full max-w-md">
         {/* Header */}
-        <div className="text-center mb-8">
-          <Link href="/" className="text-3xl font-bold text-gray-800 mb-2 block">
+        <div className="text-center mb-6 sm:mb-8">
+          <Link href="/" className="text-2xl sm:text-3xl font-bold text-gray-800 mb-2 block">
             AI 프로필
           </Link>
-          <p className="text-gray-600">로그인하여 AI 프로필 사진을 만들어보세요</p>
+          <p className="text-sm sm:text-base text-gray-600">로그인하여 AI 프로필 사진을 만들어보세요</p>
         </div>
 
         {/* Login Options */}
-        <div className="space-y-4">
+        <div className="space-y-3 sm:space-y-4">
           {/* Google Login (비활성화) */}
           <button
             disabled
-            className="w-full flex items-center justify-center gap-3 bg-gray-100 border-2 border-gray-200 rounded-lg px-6 py-3 text-gray-500 font-medium opacity-50 cursor-not-allowed"
+            className="w-full flex items-center justify-center gap-2 sm:gap-3 bg-gray-100 border-2 border-gray-200 rounded-lg px-4 sm:px-6 py-3 text-gray-500 font-medium opacity-50 cursor-not-allowed text-sm sm:text-base"
           >
             <svg className="w-5 h-5" viewBox="0 0 24 24">
               <path fill="#9CA3AF" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
@@ -75,7 +75,7 @@ export default function LoginPage() {
           {/* 간편 로그인 (데모용) */}
           <button
             onClick={handleEmailLogin}
-            className="w-full bg-indigo-600 text-white rounded-lg px-6 py-3 font-medium hover:bg-indigo-700 transition-colors"
+            className="w-full bg-indigo-600 text-white rounded-lg px-4 sm:px-6 py-3 font-medium hover:bg-indigo-700 transition-colors text-sm sm:text-base"
           >
             📧 이메일로 간편 시작 (데모)
           </button>
@@ -83,7 +83,7 @@ export default function LoginPage() {
           {/* 카카오 로그인 (비활성화) */}
           <button
             disabled
-            className="w-full flex items-center justify-center gap-3 bg-yellow-400 text-gray-800 rounded-lg px-6 py-3 font-medium opacity-50 cursor-not-allowed"
+            className="w-full flex items-center justify-center gap-2 sm:gap-3 bg-yellow-400 text-gray-800 rounded-lg px-4 sm:px-6 py-3 font-medium opacity-50 cursor-not-allowed text-sm sm:text-base"
           >
             <span className="text-lg">💬</span>
             카카오톡으로 시작하기 (준비중)
@@ -91,16 +91,16 @@ export default function LoginPage() {
         </div>
 
         {/* Privacy Notice */}
-        <div className="mt-8 p-4 bg-gray-50 rounded-lg">
-          <p className="text-xs text-gray-600 text-center">
+        <div className="mt-6 sm:mt-8 p-3 sm:p-4 bg-gray-50 rounded-lg">
+          <p className="text-xs text-gray-600 text-center leading-relaxed">
             로그인 시 <Link href="/privacy" className="text-indigo-600 underline">개인정보처리방침</Link> 및 
             <Link href="/terms" className="text-indigo-600 underline ml-1">이용약관</Link>에 동의하는 것으로 간주됩니다.
           </p>
         </div>
 
         {/* Back to Home */}
-        <div className="mt-6 text-center">
-          <Link href="/" className="text-gray-500 hover:text-gray-700 text-sm">
+        <div className="mt-4 sm:mt-6 text-center">
+          <Link href="/" className="text-gray-500 hover:text-gray-700 text-xs sm:text-sm">
             ← 홈으로 돌아가기
           </Link>
         </div>
