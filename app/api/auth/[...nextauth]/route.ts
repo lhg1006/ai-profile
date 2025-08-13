@@ -2,11 +2,11 @@ import NextAuth from 'next-auth'
 import GoogleProvider from 'next-auth/providers/google'
 import { NextAuthOptions } from 'next-auth'
 
-export const authOptions: NextAuthOptions = {
+const authOptions: NextAuthOptions = {
   providers: [
     GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID!,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+      clientId: process.env.GOOGLE_CLIENT_ID || 'demo',
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET || 'demo',
     }),
     // 카카오 로그인은 나중에 추가
   ],
@@ -21,7 +21,7 @@ export const authOptions: NextAuthOptions = {
       return token
     },
   },
-  secret: process.env.NEXTAUTH_SECRET,
+  secret: process.env.NEXTAUTH_SECRET || 'demo-secret-key',
 }
 
 const handler = NextAuth(authOptions)
