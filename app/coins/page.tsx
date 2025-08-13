@@ -5,6 +5,8 @@ import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { COIN_PACKAGES, CoinPackage, getUserCoins, addCoins, formatPrice, formatCoins } from '@/lib/coins'
+import PageWrapper from '@/components/PageWrapper'
+import { motion } from 'framer-motion'
 
 export default function CoinsPage() {
   const { data: session, status } = useSession()
@@ -62,7 +64,8 @@ export default function CoinsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <PageWrapper>
+      <div className="min-h-screen bg-gray-50">
       {/* Navigation */}
       <nav className="bg-white shadow-sm">
         <div className="container mx-auto px-6 py-4">
@@ -119,10 +122,14 @@ export default function CoinsPage() {
 
           {/* Coin Packages */}
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4 md:gap-6">
-            {COIN_PACKAGES.map((pkg) => (
-              <div
+            {COIN_PACKAGES.map((pkg, index) => (
+              <motion.div
                 key={pkg.id}
-                className={`bg-white rounded-xl shadow-lg p-4 sm:p-6 relative ${
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                whileHover={{ y: -8, scale: 1.02 }}
+                className={`bg-white rounded-xl shadow-lg p-4 sm:p-6 relative hover:shadow-2xl transition-shadow duration-300 ${
                   pkg.popular ? 'ring-2 ring-indigo-500 sm:transform sm:scale-105' : ''
                 }`}
               >
@@ -155,9 +162,11 @@ export default function CoinsPage() {
                     {formatPrice(pkg.price)}
                   </div>
 
-                  <button
+                  <motion.button
                     onClick={() => handlePurchase(pkg)}
                     disabled={loading === pkg.id}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
                     className={`w-full py-2 sm:py-3 px-3 sm:px-4 rounded-lg font-semibold transition-colors text-xs sm:text-sm ${
                       pkg.popular
                         ? 'bg-indigo-600 text-white hover:bg-indigo-700'
@@ -165,9 +174,9 @@ export default function CoinsPage() {
                     } disabled:opacity-50 disabled:cursor-not-allowed`}
                   >
                     {loading === pkg.id ? '결제 중...' : '구매하기'}
-                  </button>
+                  </motion.button>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
 
@@ -191,6 +200,7 @@ export default function CoinsPage() {
           </div>
         </div>
       </div>
-    </div>
+      </div>
+    </PageWrapper>
   )
 }

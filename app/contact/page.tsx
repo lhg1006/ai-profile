@@ -2,6 +2,8 @@
 
 import { useState, useRef, useEffect } from 'react'
 import Link from 'next/link'
+import PageWrapper from '@/components/PageWrapper'
+import { motion } from 'framer-motion'
 
 interface Message {
   id: string
@@ -167,7 +169,8 @@ export default function ContactPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <PageWrapper>
+      <div className="min-h-screen bg-gray-50">
       {/* Navigation */}
       <nav className="bg-white shadow-sm">
         <div className="container mx-auto px-4 sm:px-6 py-4">
@@ -316,6 +319,7 @@ export default function ContactPage() {
           </div>
         </div>
       </div>
-    </div>
+      </div>
+    </PageWrapper>
   )
 }

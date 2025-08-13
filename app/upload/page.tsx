@@ -7,6 +7,8 @@ import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 import Link from 'next/link'
 import { getUserCoins, COIN_COSTS } from '@/lib/coins'
+import PageWrapper from '@/components/PageWrapper'
+import { motion } from 'framer-motion'
 
 export default function UploadPage() {
   const { data: session, status } = useSession()
@@ -107,7 +109,8 @@ export default function UploadPage() {
 
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <PageWrapper>
+      <div className="min-h-screen bg-gray-50">
       {/* Navigation */}
       <nav className="bg-white shadow-sm">
         <div className="container mx-auto px-6 py-4 flex justify-between items-center">
@@ -166,7 +169,12 @@ export default function UploadPage() {
           </div>
 
           {/* Drag and Drop Area */}
-          <div className="bg-white rounded-xl shadow-sm border-2 border-dashed border-gray-300 p-6 sm:p-8 md:p-12 text-center mb-6 sm:mb-8 mx-4 sm:mx-0 hover:border-indigo-400 transition-colors">
+          <motion.div 
+            className="bg-white rounded-xl shadow-sm border-2 border-dashed border-gray-300 p-6 sm:p-8 md:p-12 text-center mb-6 sm:mb-8 mx-4 sm:mx-0 hover:border-indigo-400 transition-colors"
+            whileHover={{ scale: 1.02, borderColor: '#6366f1' }}
+            animate={isDragActive ? { scale: 1.05, borderColor: '#6366f1' } : {}}
+            transition={{ type: "spring", stiffness: 300, damping: 20 }}
+          >
             <div {...getRootProps()} className="cursor-pointer">
               <input {...getInputProps()} />
               <div className="mb-4">
@@ -187,7 +195,7 @@ export default function UploadPage() {
                 </div>
               )}
             </div>
-          </div>
+          </motion.div>
 
           {/* Photo Previews Grid */}
           {previews.length > 0 && (
@@ -195,19 +203,29 @@ export default function UploadPage() {
               <h3 className="text-base sm:text-lg font-semibold mb-4">업로드된 사진 ({files.length}장)</h3>
               <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2 sm:gap-4">
                 {previews.map((preview, index) => (
-                  <div key={index} className="relative group">
+                  <motion.div 
+                    key={index} 
+                    className="relative group"
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.3, delay: index * 0.05 }}
+                    whileHover={{ scale: 1.05 }}
+                    layout
+                  >
                     <img
                       src={preview}
                       alt={`Upload ${index + 1}`}
                       className="w-full h-24 sm:h-32 object-cover rounded-lg"
                     />
-                    <button
+                    <motion.button
                       onClick={() => removeFile(index)}
                       className="absolute top-1 right-1 sm:top-2 sm:right-2 bg-red-500 text-white rounded-full w-5 h-5 sm:w-6 sm:h-6 flex items-center justify-center text-xs sm:text-sm opacity-0 group-hover:opacity-100 transition-opacity"
+                      whileHover={{ scale: 1.2 }}
+                      whileTap={{ scale: 0.9 }}
                     >
                       ×
-                    </button>
-                  </div>
+                    </motion.button>
+                  </motion.div>
                 ))}
               </div>
             </div>
@@ -270,6 +288,7 @@ export default function UploadPage() {
           </div>
         </div>
       </div>
-    </div>
+      </div>
+    </PageWrapper>
   )
 }

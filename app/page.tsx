@@ -3,10 +3,13 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import Navbar from '@/components/Navbar'
+import PageWrapper from '@/components/PageWrapper'
+import { motion } from 'framer-motion'
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+    <PageWrapper>
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
       {/* Navigation */}
       <Navbar />
 
@@ -22,12 +25,18 @@ export default function HomePage() {
             링크드인, 이력서, SNS에 완벽한 사진입니다.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 px-4">
-            <Link
-              href="/upload"
-              className="w-full sm:w-auto bg-indigo-600 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-lg text-base sm:text-lg font-semibold hover:bg-indigo-700 transition duration-300 text-center"
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              transition={{ type: "spring", stiffness: 400, damping: 17 }}
             >
-              지금 시작하기 - 10코인 무료
-            </Link>
+              <Link
+                href="/upload"
+                className="block w-full sm:w-auto bg-indigo-600 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-lg text-base sm:text-lg font-semibold hover:bg-indigo-700 transition duration-300 text-center shadow-lg hover:shadow-xl"
+              >
+                지금 시작하기 - 10코인 무료
+              </Link>
+            </motion.div>
           </div>
           <p className="mt-4 text-xs sm:text-sm text-gray-500">신용카드 등록 불필요</p>
         </div>
@@ -51,33 +60,66 @@ export default function HomePage() {
       <section id="features" className="container mx-auto px-4 sm:px-6 py-12 sm:py-20">
         <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center text-gray-900 mb-8 sm:mb-12 px-4">왜 저희 서비스인가요?</h2>
         <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8 px-4">
-          <div className="text-center">
-            <div className="bg-indigo-100 rounded-full w-16 h-16 sm:w-20 sm:h-20 flex items-center justify-center mx-auto mb-4">
+          <motion.div 
+            className="text-center"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            whileHover={{ y: -5 }}
+            viewport={{ once: true }}
+          >
+            <motion.div 
+              className="bg-indigo-100 rounded-full w-16 h-16 sm:w-20 sm:h-20 flex items-center justify-center mx-auto mb-4"
+              whileHover={{ scale: 1.1, rotate: 5 }}
+              transition={{ type: "spring", stiffness: 400, damping: 10 }}
+            >
               <svg className="w-8 h-8 sm:w-10 sm:h-10 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
               </svg>
-            </div>
+            </motion.div>
             <h3 className="text-lg sm:text-xl font-semibold mb-2">빠른 생성</h3>
             <p className="text-sm sm:text-base text-gray-600">20-30분 내에 사진 완성</p>
-          </div>
-          <div className="text-center">
-            <div className="bg-indigo-100 rounded-full w-16 h-16 sm:w-20 sm:h-20 flex items-center justify-center mx-auto mb-4">
+          </motion.div>
+          <motion.div 
+            className="text-center"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            whileHover={{ y: -5 }}
+            viewport={{ once: true }}
+          >
+            <motion.div 
+              className="bg-indigo-100 rounded-full w-16 h-16 sm:w-20 sm:h-20 flex items-center justify-center mx-auto mb-4"
+              whileHover={{ scale: 1.1, rotate: 5 }}
+              transition={{ type: "spring", stiffness: 400, damping: 10 }}
+            >
               <svg className="w-8 h-8 sm:w-10 sm:h-10 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
               </svg>
-            </div>
+            </motion.div>
             <h3 className="text-lg sm:text-xl font-semibold mb-2">1:3 생성비율</h3>
             <p className="text-sm sm:text-base text-gray-600">다양한 스타일과 배경 선택 가능</p>
-          </div>
-          <div className="text-center">
-            <div className="bg-indigo-100 rounded-full w-16 h-16 sm:w-20 sm:h-20 flex items-center justify-center mx-auto mb-4">
+          </motion.div>
+          <motion.div 
+            className="text-center"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            whileHover={{ y: -5 }}
+            viewport={{ once: true }}
+          >
+            <motion.div 
+              className="bg-indigo-100 rounded-full w-16 h-16 sm:w-20 sm:h-20 flex items-center justify-center mx-auto mb-4"
+              whileHover={{ scale: 1.1, rotate: 5 }}
+              transition={{ type: "spring", stiffness: 400, damping: 10 }}
+            >
               <svg className="w-8 h-8 sm:w-10 sm:h-10 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
               </svg>
-            </div>
+            </motion.div>
             <h3 className="text-lg sm:text-xl font-semibold mb-2">개인정보 보호</h3>
             <p className="text-sm sm:text-base text-gray-600">처리 후 사진 자동 삭제</p>
-          </div>
+          </motion.div>
         </div>
       </section>
 
@@ -183,7 +225,7 @@ export default function HomePage() {
       {/* Footer */}
       <footer className="container mx-auto px-4 sm:px-6 py-8 sm:py-12 border-t">
         <div className="text-center text-gray-600">
-          <p className="text-sm sm:text-base">© 2024 AI 프로필. All rights reserved.</p>
+          <p className="text-sm sm:text-base">© 2025 AI 프로필. All rights reserved.</p>
           <div className="mt-4 flex flex-wrap justify-center gap-4 sm:gap-6">
             <Link href="/privacy" className="hover:text-gray-900 text-sm sm:text-base">개인정보처리방침</Link>
             <Link href="/terms" className="hover:text-gray-900 text-sm sm:text-base">이용약관</Link>
@@ -191,6 +233,7 @@ export default function HomePage() {
           </div>
         </div>
       </footer>
-    </div>
+      </div>
+    </PageWrapper>
   )
 }
