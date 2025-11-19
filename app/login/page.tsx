@@ -37,12 +37,27 @@ export default function LoginPage() {
     // 임시로 이메일 입력받아서 세션 생성 (데모용)
     const email = prompt('이메일을 입력하세요 (데모용)')
     if (email) {
-      // 임시 로그인 처리 (신규 유저는 10 코인 지급)
-      localStorage.setItem('demo-user', JSON.stringify({ 
-        email, 
-        name: email.split('@')[0],
-        coins: 10 // 신규 유저 웰컴 코인
-      }))
+      // 기존 유저 체크
+      const existingUser = localStorage.getItem('demo-user')
+
+      if (!existingUser) {
+        // 신규 유저인 경우
+        localStorage.setItem('demo-user', JSON.stringify({
+          email,
+          name: email.split('@')[0]
+        }))
+
+        // 신규 유저 10 코인 지급
+        localStorage.setItem('ai_profile_coins', '10')
+        alert('🎉 환영합니다! 신규 가입 보너스 10코인이 지급되었습니다!')
+      } else {
+        // 기존 유저인 경우 - 코인 그대로 유지
+        localStorage.setItem('demo-user', JSON.stringify({
+          email,
+          name: email.split('@')[0]
+        }))
+      }
+
       router.push('/upload')
     }
   }

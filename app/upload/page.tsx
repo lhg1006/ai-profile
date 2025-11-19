@@ -6,7 +6,8 @@ import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 import Link from 'next/link'
-import { getUserCoins, COIN_COSTS } from '@/lib/coins'
+import { getUserCoins, spendCoins, COIN_COSTS } from '@/lib/coins'
+import { saveGenerationHistory } from '@/lib/images'
 import PageWrapper from '@/components/PageWrapper'
 import { motion } from 'framer-motion'
 
@@ -54,6 +55,11 @@ export default function UploadPage() {
   }
 
   const handleUpload = async () => {
+    // 중복 클릭 방지
+    if (uploading) {
+      return
+    }
+
     if (files.length < 5) {
       alert('최소 5장의 사진을 업로드해주세요')
       return
@@ -61,39 +67,81 @@ export default function UploadPage() {
 
     const totalCost = files.length * 10 // 사진 1장당 10 코인
     const currentCoins = getUserCoins()
-    
+
     if (currentCoins < totalCost) {
       alert(`코인이 부족합니다! 필요 코인: ${totalCost}, 현재 코인: ${currentCoins}`)
       return
     }
 
     setUploading(true)
-    // TODO: Implement actual upload logic
-    setTimeout(() => {
+
+    try {
+      // FormData 생성
+      const formData = new FormData()
+      files.forEach(file => {
+        formData.append('images', file)
+      })
+
+      // API 호출
+      const response = await fetch('/api/generate', {
+        method: 'POST',
+        body: formData
+      })
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(data.error || '이미지 생성에 실패했습니다')
+      }
+
+      // 코인 차감
+      const success = spendCoins(totalCost)
+      if (!success) {
+        throw new Error('코인 차감에 실패했습니다')
+      }
+
+      // 생성 히스토리 저장
+      const generationId = saveGenerationHistory(data.images, files.length)
+
+      // 성공 알림
+      alert(`✅ 성공!\n${files.length}장 업로드 → ${data.count}장 생성 완료!\n${totalCost}코인이 차감되었습니다.`)
+
+      // 갤러리 페이지로 리다이렉트
+      router.push(`/gallery?id=${generationId}`)
+
+    } catch (error: any) {
+      console.error('업로드 오류:', error)
+      alert(`❌ 오류 발생: ${error.message}`)
+    } finally {
       setUploading(false)
-      alert(`${files.length}장 업로드 → ${files.length * 3}장 생성됩니다! (${totalCost} 코인 차감)`)
-      // TODO: Redirect to generation results page
-    }, 2000)
+    }
   }
 
+  // 로그인 체크 (한 번만 실행)
   useEffect(() => {
-    // 로그인 체크
-    if (status === 'loading') return // 아직 로딩 중
+    if (status === 'loading') return
 
     // 데모 유저 체크
     if (typeof window !== 'undefined') {
       const demo = localStorage.getItem('demo-user')
       if (demo) {
         setDemoUser(JSON.parse(demo))
-        return
       }
     }
+  }, [status])
+
+  // 인증 확인 및 리다이렉트
+  useEffect(() => {
+    if (status === 'loading') return
+
+    // localStorage 직접 확인 (상태 업데이트 타이밍 문제 방지)
+    const hasLocalUser = typeof window !== 'undefined' && localStorage.getItem('demo-user')
 
     // NextAuth 세션도 없고 데모 유저도 없으면 로그인 페이지로
-    if (!session && !demoUser) {
+    if (!session && !demoUser && !hasLocalUser) {
       router.push('/login')
     }
-  }, [session, status, router, demoUser])
+  }, [session, demoUser, status, router])
 
   // 로딩 중이거나 인증되지 않은 경우
   if (status === 'loading' || (!session && !demoUser)) {

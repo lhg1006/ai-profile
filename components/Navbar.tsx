@@ -52,8 +52,11 @@ export default function Navbar() {
             {user ? (
               <div className="flex items-center space-x-4">
                 <CoinBalance />
+                <Link href="/gallery" className="text-gray-600 hover:text-gray-900 transition-colors">
+                  갤러리
+                </Link>
                 <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                  <Link 
+                  <Link
                     href="/upload"
                     className="block bg-indigo-600 text-white px-3 py-2 rounded-lg hover:bg-indigo-700 transition-colors text-sm"
                   >
@@ -131,6 +134,7 @@ export default function Navbar() {
         {user && (
           <div className="lg:hidden mt-4 pt-4 border-t border-gray-200">
             <div className="flex justify-center space-x-6">
+              <Link href="/gallery" className="text-gray-600 hover:text-gray-900 text-sm">갤러리</Link>
               <Link href="#features" className="text-gray-600 hover:text-gray-900 text-sm">기능</Link>
               <Link href="#how-it-works" className="text-gray-600 hover:text-gray-900 text-sm">사용법</Link>
               <Link href="#pricing" className="text-gray-600 hover:text-gray-900 text-sm">가격</Link>

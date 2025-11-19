@@ -15,8 +15,8 @@ export default function CoinsPage() {
   const [currentCoins, setCurrentCoins] = useState(0)
   const [loading, setLoading] = useState('')
 
+  // 로그인 체크 (한 번만 실행)
   useEffect(() => {
-    // 로그인 체크
     if (status === 'loading') return
 
     // 데모 유저 체크
@@ -24,15 +24,24 @@ export default function CoinsPage() {
       const demo = localStorage.getItem('demo-user')
       if (demo) {
         setDemoUser(JSON.parse(demo))
-        setCurrentCoins(getUserCoins())
-        return
       }
     }
 
-    if (!session && !demoUser) {
+    // 코인 잔액 불러오기
+    setCurrentCoins(getUserCoins())
+  }, [status])
+
+  // 인증 확인 및 리다이렉트
+  useEffect(() => {
+    if (status === 'loading') return
+
+    // localStorage 직접 확인 (상태 업데이트 타이밍 문제 방지)
+    const hasLocalUser = typeof window !== 'undefined' && localStorage.getItem('demo-user')
+
+    if (!session && !demoUser && !hasLocalUser) {
       router.push('/login')
     }
-  }, [session, status, router, demoUser])
+  }, [session, demoUser, status, router])
 
   const handlePurchase = async (pkg: CoinPackage) => {
     setLoading(pkg.id)
