@@ -10,6 +10,11 @@ import { motion } from 'framer-motion'
 export default function LoginPage() {
   const router = useRouter()
   const [isLoading, setIsLoading] = useState(false)
+  const [accessCode, setAccessCode] = useState('')
+  const [isAuthorized, setIsAuthorized] = useState(false)
+
+  // 접근 코드 (환경변수로 설정 가능)
+  const VALID_ACCESS_CODE = process.env.NEXT_PUBLIC_ACCESS_CODE || 'DEMO2024'
 
   useEffect(() => {
     // 이미 로그인된 경우 홈으로 리다이렉트
@@ -21,6 +26,15 @@ export default function LoginPage() {
     }
     checkSession()
   }, [router])
+
+  const handleAccessCodeSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (accessCode === VALID_ACCESS_CODE) {
+      setIsAuthorized(true)
+    } else {
+      alert('잘못된 접근 코드입니다.')
+    }
+  }
 
   const handleGoogleLogin = async () => {
     setIsLoading(true)
@@ -60,6 +74,64 @@ export default function LoginPage() {
 
       router.push('/upload')
     }
+  }
+
+  // 접근 코드 입력 화면
+  if (!isAuthorized) {
+    return (
+      <PageWrapper>
+        <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
+          <div className="bg-white rounded-2xl shadow-xl p-6 sm:p-8 w-full max-w-md">
+            {/* Header */}
+            <div className="text-center mb-6 sm:mb-8">
+              <Link href="/" className="text-2xl sm:text-3xl font-bold text-gray-800 mb-2 block">
+                AI 프로필
+              </Link>
+              <p className="text-sm sm:text-base text-gray-600">🔒 접근 제한</p>
+            </div>
+
+            {/* Access Code Form */}
+            <form onSubmit={handleAccessCodeSubmit} className="space-y-4">
+              <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-4">
+                <p className="text-sm text-yellow-800 text-center">
+                  ⚠️ 현재 테스트 단계입니다.<br />
+                  접근 코드가 필요합니다.
+                </p>
+              </div>
+
+              <div>
+                <label htmlFor="accessCode" className="block text-sm font-medium text-gray-700 mb-2">
+                  접근 코드
+                </label>
+                <input
+                  type="password"
+                  id="accessCode"
+                  value={accessCode}
+                  onChange={(e) => setAccessCode(e.target.value)}
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                  placeholder="접근 코드를 입력하세요"
+                  required
+                />
+              </div>
+
+              <button
+                type="submit"
+                className="w-full bg-indigo-600 text-white rounded-lg px-4 py-3 font-medium hover:bg-indigo-700 transition-colors"
+              >
+                확인
+              </button>
+            </form>
+
+            {/* Back to Home */}
+            <div className="mt-6 text-center">
+              <Link href="/" className="text-gray-500 hover:text-gray-700 text-sm">
+                ← 홈으로 돌아가기
+              </Link>
+            </div>
+          </div>
+        </div>
+      </PageWrapper>
+    )
   }
 
   return (
