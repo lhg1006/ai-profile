@@ -131,13 +131,6 @@ ai-profile-project/
 
 기여는 언제나 환영합니다! PR을 보내주시거나 이슈를 등록해주세요.
 
-## 📞 문의
-
-- 이메일: support@aiprofile.kr
-- 고객센터: 1588-1234
-
 ---
 
 © 2025 AI 프로필. All rights reserved.
-
-🤖 Built with [Claude Code](https://claude.ai/code)
