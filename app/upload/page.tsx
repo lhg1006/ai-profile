@@ -204,6 +204,14 @@ export default function UploadPage() {
             </div>
           </div>
 
+          {/* Demo Notice */}
+          <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-6 mx-4 sm:mx-0">
+            <p className="text-sm sm:text-base text-red-800 text-center font-semibold">
+              📋 데모 어플리케이션 - 포트폴리오용 프로젝트입니다<br className="sm:hidden" />
+              <span className="hidden sm:inline"> | </span>실제 AI 생성 기능은 작동하지 않습니다
+            </p>
+          </div>
+
           {/* Upload Instructions */}
           <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 sm:p-6 mb-6 sm:mb-8 mx-4 sm:mx-0">
             <h3 className="font-semibold text-blue-900 mb-3 text-sm sm:text-base">📸 최고 결과를 위한 사진 팁:</h3>

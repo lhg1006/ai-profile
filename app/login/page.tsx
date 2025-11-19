@@ -92,6 +92,12 @@ export default function LoginPage() {
 
             {/* Access Code Form */}
             <form onSubmit={handleAccessCodeSubmit} className="space-y-4">
+              <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-4">
+                <p className="text-sm text-red-800 text-center font-semibold">
+                  📋 데모 어플리케이션 - 포트폴리오용<br />
+                  실제 AI 기능은 작동하지 않습니다
+                </p>
+              </div>
               <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-4">
                 <p className="text-sm text-yellow-800 text-center">
                   ⚠️ 현재 테스트 단계입니다.<br />

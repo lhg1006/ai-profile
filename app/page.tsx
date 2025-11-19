@@ -13,6 +13,15 @@ export default function HomePage() {
       {/* Navigation */}
       <Navbar />
 
+      {/* Demo Notice */}
+      <div className="bg-gradient-to-r from-yellow-400 via-orange-400 to-red-400 text-white py-3">
+        <div className="container mx-auto px-4 text-center">
+          <p className="text-sm sm:text-base font-semibold">
+            ⚠️ 데모 어플리케이션 - 포트폴리오용 프로젝트입니다. 실제 AI 생성 기능은 작동하지 않습니다.
+          </p>
+        </div>
+      </div>
+
       {/* Hero Section */}
       <section className="container mx-auto px-4 sm:px-6 py-12 sm:py-20">
         <div className="text-center">
